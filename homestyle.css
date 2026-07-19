@@ -5,6 +5,29 @@ html {
 body {
   background-color: #8BD1CB;
 }
+.container{
+  display: grid;
+  grid-template-rows:13vh  13vh 13vh 13vh 13vh 13vh 13vh;
+  grid-template-columns: 13vw 13vw 13vw 13vw 13vw 13vw 13vw;
+}
+.box1{
+  display: flex;
+  grid-row-start: 1;
+  grid-column-start:3;
+  grid-column-end: 8;
+}
+
+.poppybox{
+  grid-row-start: 2;
+  grid-row-end: 4;
+  grid-column-start:4;
+  grid-column-end: 6;
+}
+.butt{
+  grid-row-start: 7;
+  grid-column-start:3;
+  grid-column-end: 6;
+}
 
 h1,h2,h3,a,p{
   font-family: 'Sniglet', serif;
@@ -12,28 +35,31 @@ h1,h2,h3,a,p{
 }
 
 h1 {
-  font-size: 10vw;
+  font-size: 7vw;
   margin:0px;
   padding:0px;
 
 }
 
 a {
-  font-size: 5vw;
+  font-size: 1vw;
   text-decoration: none;
   color: inherit;
   border: 5px solid #fff7e1;
   border-radius: 1em;
-  background-color:#fff7e180 ;
-  padding-left:.7em;
-  padding-right: .7em;
-  padding-top: .2em;
-  padding-bottom: .2em;
+  background-color:hsla(44, 100%, 94%, 0.502) ;
+  padding-left:1vw;
+  padding-right: 1vw;
+  margin:2vw;
   
   
 }
+
 p{
-  font-size: 3vw;
+  font-size: 5vw;
+  padding-left:2vw;
+  padding-right: 2vw;
+  margin:auto;
 }
 #drops{
   border: 5px solid #fff7e1;
@@ -46,19 +72,10 @@ p{
   
 }
 
-.cw_logo_h{
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  background-color:#fff7e1;
-  padding: .7em;
-  border-radius: 1em;
-  width:fit-content;
-}
-.poppy{
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  height:30vw;
-  margin-bottom: 3vw;
+
+.poppybox img {
+  
+  margin-bottom: 3vh;
+  height:50vh;
+  width:auto;
 }
