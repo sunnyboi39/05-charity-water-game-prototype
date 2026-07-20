@@ -71,8 +71,8 @@ p{
   max-height: max-content;
   justify-content: center;
   display: grid;
-  grid-template-rows: repeat(14, 6.5%);
-  grid-template-columns: repeat(7, 11%);
+  grid-template-rows: repeat(14, minmax(0, 1fr));
+  grid-template-columns: repeat(7, minmax(0,1fr));
   position:relative;
 }
   
