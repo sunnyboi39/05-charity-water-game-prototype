@@ -73,6 +73,7 @@ p{
   display: grid;
   grid-template-rows: repeat(14, 6.5%);
   grid-template-columns: repeat(7, 11%);
+  position:relative;
 }
   
 
@@ -84,11 +85,11 @@ p{
   grid-column-start: 1;
   grid-column-end: 9;
   display: flex;
-  position: absolute;
+  
 }
 
 .wellbox img{
-  margin-right:11%;
+  margin-right:7%;
   margin-bottom:3%;
   
  
