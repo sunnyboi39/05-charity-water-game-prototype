@@ -1,0 +1,96 @@
+/* Charity: water Brand Colors
+
+Primary Colors:
+- Yellow:     #FFC907
+- Blue:       #2E9DF7
+
+Secondary Colors:
+- Light Blue: #8BD1CB
+- Green:      #4FCB53
+- Orange:     #FF902A
+- Red:        #F5402C
+- Dark Green: #159A48
+- Pink:       #F16061
+
+*/
+@import url('https://fonts.googleapis.com/css?family=Sniglet');
+html {
+  scrollbar-gutter: stable;
+}
+body {
+  background-color: #8BD1CB;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; 
+  align-items: center;
+  
+  
+}
+
+h1,h2,h3,a,p{
+  font-family: 'Sniglet', serif;
+  text-align: center;
+}
+
+h1 {
+  font-size: 5vh;
+  margin:0px;
+  padding:0px;
+
+}
+
+a {
+  font-size: 5vw;
+  text-decoration: none;
+  color: inherit;
+  border: 5px solid #fff7e1;
+  border-radius: 1em;
+  background-color:#fff7e180 ;
+  padding-left:.7em;
+  padding-right: .7em;
+  padding-top: .2em;
+  padding-bottom: .2em;
+  
+  
+}
+p{
+  font-size: 3vw;
+}
+#drops{
+  border: 5px solid #fff7e1;
+  border-radius: 1em;
+  background-color:#fff7e180 ;
+}
+.butt{
+  text-align: center;
+  
+  
+}
+.wellcontainer{
+  max-width: max-content;
+  max-height: max-content;
+  justify-content: center;
+  display: grid;
+  grid-template-rows: repeat(14, 6.5%);
+  grid-template-columns: repeat(7, 11%);
+}
+  
+
+
+
+.wellcontainer .wellbox{
+  grid-row-start: 1;
+  grid-row-end: 15;
+  grid-column-start: 1;
+  grid-column-end: 9;
+  display: flex;
+  position: absolute;
+}
+
+.wellbox img{
+  margin-right:11%;
+  margin-bottom:3%;
+  
+ 
+ 
+}
