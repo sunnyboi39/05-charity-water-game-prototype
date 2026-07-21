@@ -6,7 +6,9 @@ const well = document.getElementById("wellcontainer");
 const wellimg = document.getElementById("well");
 let stoneNum=0;
 let wellwidth;
+let imgwidth;
 let container;
+let stoneimg;
 let spaces=[[false,false,false,false,false,false],[false,false,false,false,false,false],[false,false,false,false,false,false],[false,false,false,false,false,false],[false,false,false,false,false,false]];
 function makeStone(stone){
   stoneNum=stoneNum+1;
@@ -23,27 +25,89 @@ function makeStone(stone){
     stoneImg.style.height = "100%";
     imgWrap.style.gridRow = "1 / 3";
     imgWrap.style.gridColumn = "1 / 4";
-  };
+  }
   /* add more elifs for different stones*/
   imgWrap.appendChild(stoneImg);
   well.appendChild(imgWrap);
   imgWrap.style.zIndex = "10"; 
   imgWrap.style.position = "absolute";
-  return imgWrap;
-};
+  return [imgWrap, stoneImg];
+}
 
-function moveStone(stone){
+function moveStone1(stone,stonepic){
+  let maxpx;
   if(wellimg.complete){
     wellwidth=wellimg.width;
-    console.log('Rendered Width:', wellimg.width);  
+    console.log('Rendered Width well:', wellimg.width);  
   }else{
     wellimg.addEventListener('load', function() {
-    console.log('Rendered Width:', this.width);
+    console.log('load Rendered Width well:', this.width);
     wellwidth=this.width;
-  });
-  };
+    });
+  }
+  
+  if(stonepic.complete){
+    imgwidth=parseInt(stonepic.width);
+    console.log('Rendered Width stone:', imgwidth); 
+    moveStone2(stone,maxpx); 
+  }else{
+    stonepic.addEventListener('load', function() {
+      imgwidth=parseInt(this.width);
+      console.log('load Rendered Width stone:', imgwidth);
+      
+      maxpx= wellwidth-imgwidth;
+      console.log("maxpx: ", maxpx);
+      moveStone2(stone,maxpx);
+    });
+  }
+  
+}
 
+function moveStone2(stone, px){
+  let moveInc=10;
+  console.log("how much can the block move horizontally? ", px);
+  stone.style.position="absolute";
+  
+  const delay=(ms)=> new Promise(resolve => setTimeout(resolve,ms));
+
+  async function moveloop() {
+    let x=0;
+    let tempconstraint=10;
+
+    while(tempconstraint>0){
+      while(x<px){
+        console.log(stone.style.left);
+        stone.style.left= (parseInt(window.getComputedStyle(stone).left)+ moveInc)+"px";
+        console.log(stone.style.left);
+        await delay(50);
+        console.log("waited");
+        console.log("x: ", x);
+        x=x+moveInc;
+      }
+      console.log("right loop done"); 
+      while(x>0){
+        console.log(stone.style.left);
+        stone.style.left= (parseInt(window.getComputedStyle(stone).left)- moveInc)+"px";
+        console.log(stone.style.left);
+        await delay(50);
+        console.log("waited");
+        console.log("x: ", x);
+        x=x-moveInc;
+      }
+      console.log("left loop done");
+      tempconstraint=tempconstraint-1;
+    }
+  }
+
+  
+  moveloop();
+  
+  
 };
-container=makeStone(stoneType[0]);
+
+
+[container,stoneimg]=makeStone(stoneType[0]);
+let maxmove;
+maxmove=moveStone1(container,stoneimg);
 console.log(container.id);
 console.log(wellimg.width);
