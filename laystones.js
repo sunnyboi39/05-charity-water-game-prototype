@@ -1,6 +1,6 @@
 
 const stoneType=["l shape","back l","wide","tall"];
- 
+const stonebutt= document.getElementById("stone-button");
 const drops=document.getElementById("drops");
 const well = document.getElementById("wellcontainer");
 const wellimg = document.getElementById("well");
@@ -72,30 +72,40 @@ function moveStone2(stone, px){
 
   async function moveloop() {
     let x=0;
-    let tempconstraint=10;
+    let buttonNotPressed=true;
+    stonebutt.addEventListener("click",()=>{
+      buttonNotPressed=false;
+      console.log("button pressed? ", !buttonNotPressed);
+      
+    });
 
-    while(tempconstraint>0){
+    while(buttonNotPressed){
       while(x<px){
+        if(!buttonNotPressed){
+          break;
+        }
         console.log(stone.style.left);
         stone.style.left= (parseInt(window.getComputedStyle(stone).left)+ moveInc)+"px";
         console.log(stone.style.left);
-        await delay(50);
+        await delay(100);
         console.log("waited");
         console.log("x: ", x);
         x=x+moveInc;
       }
       console.log("right loop done"); 
       while(x>0){
+        if(!buttonNotPressed){
+          break;
+        }
         console.log(stone.style.left);
         stone.style.left= (parseInt(window.getComputedStyle(stone).left)- moveInc)+"px";
         console.log(stone.style.left);
-        await delay(50);
+        await delay(100);
         console.log("waited");
         console.log("x: ", x);
         x=x-moveInc;
       }
       console.log("left loop done");
-      tempconstraint=tempconstraint-1;
     }
   }
 
