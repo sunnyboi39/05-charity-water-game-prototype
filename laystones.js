@@ -130,18 +130,21 @@ function placeStone(stone,x,stonetype){
   let gridinc=wellwidth/10;
   console.log('place stone x:', x);
   console.log('place stone id:', stone.id);
-  if(0<=x<=gridinc){
-    console.log('is ',x,' between 0 and ',gridinc,' :', 0<=x<=gridinc);
-    gridx=0;
-  }else if(gridinc<x<=3*gridinc){
-    gridx=1;
-
-  }else if(3*gridinc<x<=5*gridinc){
+  if(x<=3*gridinc){
+    x=0;
     gridx=2;
-  }else if(5*gridinc<x<=7*gridinc){
+  }else if(x<=5*gridinc){
+    x=2*gridinc;
     gridx=3;
-  }else{
+  }else if(x<=7*gridinc){
+    x=4*gridinc;
     gridx=4;
+  }else if(x<=9*gridinc){
+    x=6*gridinc;
+    gridx=5;
+  }else{
+    x=8*gridinc;
+    gridx=6;
   }
   console.log("grid x value: ", gridx);
 
@@ -159,17 +162,20 @@ function placeStone(stone,x,stonetype){
         spaces[i][gridx+1]=true;
         spaces[i][gridx+2]=true;
         console.log(spaces);
-        well.appendChild(stone);
-
+        
+        //well.appendChild(stone);
+        stone.style.position="absolute";
+        
+        
         stone.style.gridRow=((i+9)-1)+"/"+((i+9)+1);
-        stone.style.gridColumn=gridx+"/"+(gridx+3);
+        stone.style.gridColumn=(gridx)+"/"+(gridx+3);
+        console.log(stone.style.gridRow, stone.style.gridColumn);
+       
+        
         break;
-        /*well.appendChild(stone);
+        
 
-        stone.style.gridRow=2/4;
-        //(i-1)+"/"+(i+1);
-        stone.style.gridColumn=2/4;
-        //gridx+"/"+(grid+3);*/
+    
       }
     }
     
