@@ -36,6 +36,7 @@ function makeStone(stone){
 
 function moveStone1(stone,stonepic){
   let maxpx;
+  let userx;
   if(wellimg.complete){
     wellwidth=wellimg.width;
     console.log('Rendered Width well:', wellimg.width);  
@@ -49,7 +50,9 @@ function moveStone1(stone,stonepic){
   if(stonepic.complete){
     imgwidth=parseInt(stonepic.width);
     console.log('Rendered Width stone:', imgwidth); 
-    moveStone2(stone,maxpx); 
+    maxpx= wellwidth-imgwidth;
+    console.log("maxpx: ", maxpx);
+    userx=moveStone2(stone,maxpx); 
   }else{
     stonepic.addEventListener('load', function() {
       imgwidth=parseInt(this.width);
@@ -57,7 +60,8 @@ function moveStone1(stone,stonepic){
       
       maxpx= wellwidth-imgwidth;
       console.log("maxpx: ", maxpx);
-      moveStone2(stone,maxpx);
+      userx=moveStone2(stone,maxpx);
+      console.log("userx: ", userx);
     });
   }
   
@@ -65,6 +69,7 @@ function moveStone1(stone,stonepic){
 
 function moveStone2(stone, px){
   let moveInc=10;
+  let xval;
   console.log("how much can the block move horizontally? ", px);
   stone.style.position="absolute";
   
@@ -107,17 +112,22 @@ function moveStone2(stone, px){
       }
       console.log("left loop done");
     }
+    return x;
   }
 
   
-  moveloop();
+  xval=moveloop();
+  console.log("xval: ", xval);
+  return xval;
   
+}
+function placeStone(){
   
-};
+}
 
 
 [container,stoneimg]=makeStone(stoneType[0]);
 let maxmove;
-maxmove=moveStone1(container,stoneimg);
+moveStone1(container,stoneimg);
 console.log(container.id);
 console.log(wellimg.width);
