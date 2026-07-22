@@ -4,13 +4,18 @@ const stonebutt= document.getElementById("stone-button");
 const drops=document.getElementById("drops");
 const well = document.getElementById("wellcontainer");
 const wellimg = document.getElementById("well");
+const body=document.getElementById("body");
+const continuebutt=document.getElementById("continue-button");
+continuebutt.addEventListener("click",()=>{
+  location.reload();
+});
 let stoneNum=0;
 let dropsEarned=0;
 let wellwidth;
 let imgwidth;
 let container;
 let stoneimg;
-let spaces=[[,,,,,],[,,,,,],[,,,,,],[,,,,,],[,,,,,],[,,,,,]];
+let spaces=[[true,true,true,true,true],[true,true,true,true,true],[true,true,true,true,true],[true,true,true,true,true],[true,true,true,true,true],[true,true,true,true,true]]; //6 rows, 5 columns
 
 if(wellimg.complete){
     wellwidth=wellimg.width;
@@ -88,13 +93,13 @@ function moveStone2(stone, px){
       placeStone(document.getElementById("stone"+(stoneNum)),x,stoneType[0]); //make stone type changeable
       stoneNum=stoneNum+1;
       
-      makeStone(stoneType[0]);
-      document.getElementById("stone"+(stoneNum)).style.gridRow="1/3";
-      document.getElementById("stone"+(stoneNum)).style.gridColumn="1/4";
-      
-      x=moveStone1(document.getElementById("stone"+(stoneNum)),document.getElementById("stoneimg"+(stoneNum)));
+      //makeStone(stoneType[0]);
+      //document.getElementById("stone"+(stoneNum)).style.gridRow="1/3";
+      //document.getElementById("stone"+(stoneNum)).style.gridColumn="1/4";
+      //x=0;
+      //moveStone1(document.getElementById("stone"+(stoneNum)),document.getElementById("stoneimg"+(stoneNum)));
 
-      placeStone(document.getElementById("stone"+(stoneNum)),x,stoneType[0]);
+      //placeStone(document.getElementById("stone"+(stoneNum)),x,stoneType[0]);
     });
 
     while(buttonNotPressed){
@@ -174,12 +179,12 @@ function placeStone(stone,x,stonetype){
       console.log("stone type 0 match: ",stonetype==stoneType[0]);
       console.log(spaces);
       try{
-        if(( spaces[i][gridx]===undefined) && ( spaces[i-1][gridx]===undefined) &&  ( spaces[i][gridx+1]===undefined ) && ( spaces[i][gridx+2]===undefined) ){
+        if(( spaces[i][gridx]===true) && ( spaces[i-1][gridx]===true) &&  ( spaces[i][gridx+1]===true ) && ( spaces[i][gridx+2]===true) ){
     
-          spaces[i][gridx]=true;
-          spaces[i-1][gridx]=true;
-          spaces[i][gridx+1]=true;
-          spaces[i][gridx+2]=true;
+          spaces[i][gridx]=false;
+          spaces[i-1][gridx]=false;
+          spaces[i][gridx+1]=false;
+          spaces[i][gridx+2]=false;
           console.log(spaces);
         
           //well.appendChild(stone);
@@ -191,17 +196,18 @@ function placeStone(stone,x,stonetype){
           console.log(stone.style.gridRow, stone.style.gridColumn);
        
         
-          break outerloop;
+          break;
         }
       }catch(error){
         console.error("Error placing stone: ", error);
+        continue;
         let gamedrops=0;
         for(let p=0;p<5;p++){
-          if(spaces[0][p]===true){
+          if(spaces[0][p]===false){
             console.log("game over");
             for(let r=1;r<6;r++){
               for(let c=0;c<5;c++){
-                if(spaces[c][r]===true){
+                if(spaces[c][r]===false){
                   gamedrops=gamedrops+40;
                 }
               }
@@ -211,8 +217,21 @@ function placeStone(stone,x,stonetype){
         gamedrops=gamedrops+dropsEarned;
         const gameover=document.createElement("p");
         gameover.textContent="Game Over!\n you earned "+gamedrops+" drops!";
-        gameover.style.fontSize="5rem";
+        gameover.style.fontSize="2rem";
         gameover.style.backgroundColor="white";
+        gameover.style.position="absolute";
+        gameover.style.gridRow="1/15";
+        gameover.style.left="1/9";
+        gameover.style.zIndex="11";
+        well.appendChild(gameover);
+        continuebutt.style.display="block";
+        
+      
+        
+        
+        
+        
+
         //drops.textContent="&#128167;- "+ gamedrops;
         document.getElementById("stone"+(stoneNum)).style.display="none";
         stonebutt.removeEventListener("click",()=>{});
@@ -232,3 +251,4 @@ makeStone(stoneType[0]);
 moveStone1(document.getElementById("stone"+stoneNum),document.getElementById("stoneimg"+stoneNum));
 //console.log(container.id);
 //console.log(wellimg.width);
+

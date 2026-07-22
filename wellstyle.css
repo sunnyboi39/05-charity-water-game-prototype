@@ -95,3 +95,12 @@ p{
  
  
 }
+#continue-button{
+  display: none;
+  font-size: 3rem;
+  background-color: white;
+  border: 5px solid #fff7e1;
+  border-radius: 1em;
+  position: absolute;
+  z-index:11;
+}
