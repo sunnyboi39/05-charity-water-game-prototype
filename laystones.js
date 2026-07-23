@@ -15,7 +15,7 @@ let wellwidth;
 let imgwidth;
 let container;
 let stoneimg;
-let spaces=[[true,true,true,true,true],[true,true,true,true,true],[true,true,true,true,true],[true,true,true,true,true],[true,true,true,true,true],[true,true,true,true,true]]; //6 rows, 5 columns
+let spaces=Array.from({length: 6}, () => Array(5)); //6 rows, 5 columns
 
 if(wellimg.complete){
     wellwidth=wellimg.width;
@@ -75,60 +75,67 @@ function moveStone1(stone,stonepic){
   }
   return userx;
 }
+function gameOver(){
 
-function moveStone2(stone, px){
+}
+
+function moveStone2(){
   let moveInc=10;
   let xval;
-  console.log("how much can the block move horizontally? ", px);
-  stone.style.position="absolute";
+  console.log("how much can the block move horizontally? ");
+  //stone.style.position="absolute";
+  makeStone(stoneType[0]);
+  let buttonNotPressed=true;
   
   const delay=(ms)=> new Promise(resolve => setTimeout(resolve,ms));
 
   async function moveloop() {
     let x=0;
-    let buttonNotPressed=true;
-    stonebutt.addEventListener("click",()=>{
-      buttonNotPressed=false;
-      console.log("button pressed? ", !buttonNotPressed);
-      placeStone(document.getElementById("stone"+(stoneNum)),x,stoneType[0]); //make stone type changeable
-      stoneNum=stoneNum+1;
-      
-      //makeStone(stoneType[0]);
-      //document.getElementById("stone"+(stoneNum)).style.gridRow="1/3";
-      //document.getElementById("stone"+(stoneNum)).style.gridColumn="1/4";
-      //x=0;
-      //moveStone1(document.getElementById("stone"+(stoneNum)),document.getElementById("stoneimg"+(stoneNum)));
-
-      //placeStone(document.getElementById("stone"+(stoneNum)),x,stoneType[0]);
-    });
 
     while(buttonNotPressed){
-      while(x<px && buttonNotPressed){
-        console.log(stone.style.left);
-        stone.style.left= (parseInt(window.getComputedStyle(stone).left)+ moveInc)+"px";
-        console.log(stone.style.left);
-        await delay(100);
-        console.log("waited");
-        console.log("x: ", x);
-        x=x+moveInc;
-      }
-      console.log("right loop done"); 
-      while(x>0 && buttonNotPressed){
-        console.log(stone.style.left);
-        stone.style.left= (parseInt(window.getComputedStyle(stone).left)- moveInc)+"px";
-        console.log(stone.style.left);
-        await delay(100);
-        console.log("waited");
-        console.log("x: ", x);
-        x=x-moveInc;
-      }
-      console.log("left loop done");
+      document.getElementById("stoneimg"+(stoneNum)).then((stonepic)=>{
+        while(x<(wellwidth-stonepic.width) && buttonNotPressed){
+          console.log(document.getElementById("stone"+(stoneNum)).style.left);
+          document.getElementById("stone"+(stoneNum)).style.left= (parseInt(window.getComputedStyle(document.getElementById("stone"+(stoneNum))).left)+ moveInc)+"px";
+          console.log(document.getElementById("stone"+(stoneNum)).style.left);
+          await delay(100);
+          console.log("waited");
+          console.log("x: ", x);
+          x=x+moveInc;
+        }
+        console.log("right loop done"); 
+        while(x>0 && buttonNotPressed){
+          console.log(document.getElementById("stone"+(stoneNum)).style.left);
+          document.getElementById("stone"+(stoneNum)).style.left= (parseInt(window.getComputedStyle(document.getElementById("stone"+(stoneNum))).left)- moveInc)+"px";
+          console.log(document.getElementById("stone"+(stoneNum)).style.left);
+          await delay(100);
+          console.log("waited");
+          console.log("x: ", x);
+          x=x-moveInc;
+        }
+        console.log("left loop done");
+      });
     }
     return x;
   }
 
-  
+
   xval=moveloop();
+  console.log("xval: ", xval);
+  stonebutt.addEventListener("click",()=>{
+    buttonNotPressed=false;
+    console.log("button pressed? ", !buttonNotPressed);
+    
+    makeStone(stoneType[0]);
+    document.getElementById("stone"+(stoneNum)).style.gridRow="1/3";
+    document.getElementById("stone"+(stoneNum)).style.gridColumn="1/4";
+    moveStone1(document.getElementById("stone"+(stoneNum)),document.getElementById("stoneimg"+(stoneNum)));
+    placeStone(document.getElementById("stone"+(stoneNum)),xval,stoneType[0]); //make stone type changeable
+    stoneNum=stoneNum+1;
+      
+
+    //placeStone(document.getElementById("stone"+(stoneNum)),x,stoneType[0]);
+    });
   console.log("xval: ", xval);
   return xval;
   
@@ -137,70 +144,84 @@ function placeStone(stone,x,stonetype){
   let spaceval;
   let gridx;
   let gridinc=wellwidth/10;
-  console.log('gridinc', gridinc);
-  console.log('place stone x:', x);
-  console.log('place stone id:', stone.id);
-  stone.style.left=0;
-  if(x<=3*gridinc){
-    gridx=0;
-    console.log('column 1');
-  }else if(x <= 5*gridinc){
+  x.then((x)=>{
+    console.log('gridinc time 3: ', 3*gridinc);
+      console.log('column 5');
+      console.log('x value: ', x);
+      console.log('gridinc value: ', gridinc);
+      console.log('well width: ', wellwidth);
+      console.log('is ',x,' a number', typeof x === 'number');
+      console.log('is ',gridinc,' a number', typeof gridinc === 'number');
     
-    gridx=1;
-    console.log('column 2');
+    console.log('gridinc', gridinc);
+    console.log('place stone x:', x);
+    console.log('place stone id:', stone.id);
+    stone.style.left=0;
+    if(x<=3*gridinc){
+      gridx=0;
+      console.log('gridinc time 3: ', 3*gridinc);
+      console.log('column 1');
+    }else if(x <= 5*gridinc){
+      
+      gridx=1;
+      console.log('column 2');
 
-  }else if(x<=(7*gridinc)){
+    }else if(x<=(7*gridinc)){
+      
+      gridx=2;
+      console.log('column 3');
+    }else if(x<=9*gridinc){
+      
+      gridx=3;
+      console.log('column 4');
+    }else{
+      gridx=4;
+      console.log('column 5');
+
+    }
+    console.log("grid x value: ", gridx); 
+
     
-    gridx=2;
-    console.log('column 3');
-  }else if(x<=9*gridinc){
+
+    //console.log(spaces[4][gridx]==false, spaces[4-1][gridx]==false, spaces[4][gridx+1]==false, spaces[4][gridx+2]==false);
     
-    gridx=3;
-    console.log('column 4');
-  }else{
-    gridx=4;
-    console.log('column 5');
-  }
-  console.log("grid x value: ", gridx);
-
-  
-
-  //console.log(spaces[4][gridx]==false, spaces[4-1][gridx]==false, spaces[4][gridx+1]==false, spaces[4][gridx+2]==false);
-  
-  outerloop: if(stonetype==stoneType[0]){
-  
-    for(let i=5;i>=0;i--){
-      for(let j=0;j<5;j++){
-        for(let k=0;k<6;k++){
-          console.log("spaces[",k,"][",j,"] = ", spaces[k][j]);
-          let spaceval=spaces?.[k][j];
-        }
+    if(stonetype==stoneType[0]){
+      if(gridx>3){
+        gridx=3;
       }
-      console.log("stone type 0 match: ",stonetype==stoneType[0]);
-      console.log(spaces);
-      try{
-        if(( spaces[i][gridx]===true) && ( spaces[i-1][gridx]===true) &&  ( spaces[i][gridx+1]===true ) && ( spaces[i][gridx+2]===true) ){
     
+      for(let i=5;i>=0;i--){
+        for(let j=0;j<5;j++){
+          for(let k=0;k<6;k++){
+            console.log("spaces[",k,"][",j,"] = ", spaces[k][j]);
+            let spaceval=spaces?.[k][j];
+          }
+        }
+        console.log("stone type 0 match: ",stonetype==stoneType[0]);
+        console.log(spaces);
+        
+        if(( spaces[i][gridx]===undefined) && ( spaces[i-1][gridx]===undefined) &&  ( spaces[i][gridx+1]===undefined ) && ( spaces[i][gridx+2]===undefined) ){
+      
           spaces[i][gridx]=false;
           spaces[i-1][gridx]=false;
           spaces[i][gridx+1]=false;
           spaces[i][gridx+2]=false;
           console.log(spaces);
-        
-          //well.appendChild(stone);
+          
+          well.appendChild(stone);
           stone.style.position="absolute";
-        
-        
+          
+          
           stone.style.gridRow=((i+8)-1)+"/"+((i+8)+1);
           stone.style.gridColumn=(gridx+2)+"/"+(gridx+5);
           console.log(stone.style.gridRow, stone.style.gridColumn);
-       
         
+          
           break;
         }
-      }catch(error){
-        console.error("Error placing stone: ", error);
-        continue;
+        
+        
+        
         let gamedrops=0;
         for(let p=0;p<5;p++){
           if(spaces[0][p]===false){
@@ -212,43 +233,40 @@ function placeStone(stone,x,stonetype){
                 }
               }
             }
+
+            gamedrops=gamedrops+dropsEarned;
+            const gameover=document.createElement("p");
+            gameover.textContent="Game Over!\n you earned "+gamedrops+" drops!";
+            gameover.style.fontSize="2rem";
+            gameover.style.backgroundColor="white";
+            gameover.style.position="absolute";
+            gameover.style.gridRow="1/15";
+            gameover.style.left="1/9";
+            gameover.style.zIndex="11";
+            well.appendChild(gameover);
+            continuebutt.style.display="block";
+            //drops.textContent="&#128167;- "+ gamedrops;
+            document.getElementById("stone"+(stoneNum)).style.display="none";
+            stonebutt.removeEventListener("click",()=>{});
+            stonebutt.disabled=true;
+            break;
           }
+          break;
         }
-        gamedrops=gamedrops+dropsEarned;
-        const gameover=document.createElement("p");
-        gameover.textContent="Game Over!\n you earned "+gamedrops+" drops!";
-        gameover.style.fontSize="2rem";
-        gameover.style.backgroundColor="white";
-        gameover.style.position="absolute";
-        gameover.style.gridRow="1/15";
-        gameover.style.left="1/9";
-        gameover.style.zIndex="11";
-        well.appendChild(gameover);
-        continuebutt.style.display="block";
+          
         
       
-        
-        
-        
-        
-
-        //drops.textContent="&#128167;- "+ gamedrops;
-        document.getElementById("stone"+(stoneNum)).style.display="none";
-        stonebutt.removeEventListener("click",()=>{});
-        stonebutt.disabled=true;
-        break;
       }
-    
     }
-  }
+  });
     
 }
 
 
-
-makeStone(stoneType[0]);
+moveStone2();
+//makeStone(stoneType[0]);
 //let maxmove;
-moveStone1(document.getElementById("stone"+stoneNum),document.getElementById("stoneimg"+stoneNum));
+//moveStone1(document.getElementById("stone"+stoneNum),document.getElementById("stoneimg"+stoneNum));
 //console.log(container.id);
 //console.log(wellimg.width);
 
