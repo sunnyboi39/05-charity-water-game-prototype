@@ -29,6 +29,7 @@ body {
   grid-template-columns: repeat(9, minmax(0,1fr));
   position:relative;
   overflow:hidden;
+  place-items: center;
   
 }
 
@@ -91,26 +92,31 @@ p{
 }
 
 #cw_logo_h{
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
+  display: flex;
   grid-row-start: 1;
   
   grid-column-start: 3;
-  grid-column-end: 7;
+  grid-column-end: 8;
   position: relative;
   
   background-color:#fff7e1;
-  padding: .7em;
+  
   border-radius: 1em;
   width:fit-content;
+  align-items: center;
+  justify-content: center;
+}
+#cw_logo_himg{
+  width:90%;
+  
+  
 }
 #poppy{
   display: block;
   margin-left: auto;
   margin-right: auto;
   grid-row-start: 4;
-  grid-row-end: 6;
+  grid-row-end: 9;
   grid-column-start: 4;
   grid-column-end: 7;
   position: relative;
