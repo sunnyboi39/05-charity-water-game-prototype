@@ -166,7 +166,7 @@ function moveStone2(){
         console.log(document.getElementById("stone"+(stoneNum)).style.left);
         await delay (100);
       }
-      await delay();
+      await delay(0);
 
 
 
@@ -431,6 +431,43 @@ function placeStone(stone,x,stonetype){
           
           stone.style.gridRow=((15-(6-i))-3)+"/"+((15-(6-i)));
           stone.style.gridColumn=(gridx+2)+"/"+(gridx+4);
+          console.log(stone.style.gridRow, stone.style.gridColumn);
+          break;
+        }
+      }else if(stonetype===stoneType[4]){
+        if(( spaces[i][gridx]===undefined) && ( spaces[i-1][gridx]===undefined) &&  ( spaces[i-1][gridx+1]===undefined ) && ( spaces[i-1][gridx+2]===undefined) ){
+      
+          spaces[i][gridx]=false;
+          spaces[i-1][gridx]=false;
+          spaces[i-1][gridx+1]=false;
+          spaces[i-1][gridx+2]=false;
+          console.log(spaces);
+          
+          well.appendChild(stone);
+          stone.style.position="absolute";
+          
+          
+          stone.style.gridRow=((15-(6-i))-2)+"/"+((15-(6-i)));
+          stone.style.gridColumn=(gridx+2)+"/"+(gridx+5);
+          console.log(stone.style.gridRow, stone.style.gridColumn);
+          break;
+        }
+      }else if(stonetype===stoneType[5]){
+        if(( spaces[i][gridx]===undefined) && ( spaces[i][gridx+1]===undefined) &&  ( spaces[i][gridx+2]===undefined ) && ( spaces[i][gridx+3]===undefined) && ( spaces[i][gridx+4]===undefined ) ){
+      
+          spaces[i][gridx]=false;
+          spaces[i][gridx+1]=false;
+          spaces[i][gridx+2]=false;
+          spaces[i][gridx+3]=false;
+          spaces[i][gridx+4]=false;
+          console.log(spaces);
+          
+          well.appendChild(stone);
+          stone.style.position="absolute";
+          
+          
+          stone.style.gridRow=((15-(6-i))-1)+"/"+((15-(6-i)));
+          stone.style.gridColumn=(gridx+2)+"/"+(gridx+6);
           console.log(stone.style.gridRow, stone.style.gridColumn);
           break;
         }
