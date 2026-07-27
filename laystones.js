@@ -1,5 +1,5 @@
 
-const stoneType=["l shape","back l","wide","tall"];
+const stoneType=["l stone","r stone","square","flipped r","flipped l","flat"];
 const stonebutt= document.getElementById("stone-button");
 const drops=document.getElementById("drops");
 const well = document.getElementById("wellcontainer");
@@ -40,11 +40,56 @@ function makeStone(stone){
 
   if(stone==stoneType[0]){
     stoneImg.src="img/Lstone.png";
-    stoneImg.alt = 'l shape stone';
+    stoneImg.alt = ' short l shape stone';
     stoneImg.style.width = "100%";
     stoneImg.style.height = "100%";
     imgWrap.style.gridRow = "1 / 3";
     imgWrap.style.gridColumn = "1 / 4";
+    stoneImg.id="stoneimg"+stoneNum;
+    stoneImg.style.left="0px";
+  }else if(stone==stoneType[1]){
+    stoneImg.src="img/Rstone.png";
+    stoneImg.alt = 'backwards l stone';
+    stoneImg.style.width = "100%";
+    stoneImg.style.height = "100%";
+    imgWrap.style.gridRow = "1 / 4";
+    imgWrap.style.gridColumn = "1 / 3";
+    stoneImg.id="stoneimg"+stoneNum;
+    stoneImg.style.left="0px";
+  }else if(stone==stoneType[2]){
+    stoneImg.src="img/square stone.png";
+    stoneImg.alt = 'square stone';
+    stoneImg.style.width = "100%";
+    stoneImg.style.height = "100%";
+    imgWrap.style.gridRow = "1 / 3";
+    imgWrap.style.gridColumn = "1 / 3";
+    stoneImg.id="stoneimg"+stoneNum;
+    stoneImg.style.left="0px";
+  }else if(stone==stoneType[3]){
+    stoneImg.src="img/flipped Rstone.png";
+    stoneImg.alt = 'flipped backwards l stone';
+    stoneImg.style.width = "100%";
+    stoneImg.style.height = "100%";
+    imgWrap.style.gridRow = "1 / 4";
+    imgWrap.style.gridColumn = "1 / 3";
+    stoneImg.id="stoneimg"+stoneNum;
+    stoneImg.style.left="0px";
+  }else if(stone==stoneType[4]){
+    stoneImg.src="img/flipped Lstone.png";
+    stoneImg.alt = 'flipped l stone';
+    stoneImg.style.width = "100%";
+    stoneImg.style.height = "100%";
+    imgWrap.style.gridRow = "1 / 3";
+    imgWrap.style.gridColumn = "1 / 4";
+    stoneImg.id="stoneimg"+stoneNum;
+    stoneImg.style.left="0px";
+  }else if(stone==stoneType[5]){
+    stoneImg.src="img/flat stone.png";
+    stoneImg.alt = 'flat stone';
+    stoneImg.style.width = "100%";
+    stoneImg.style.height = "100%";
+    imgWrap.style.gridRow = "1";
+    imgWrap.style.gridColumn = "1 / 6";
     stoneImg.id="stoneimg"+stoneNum;
     stoneImg.style.left="0px";
   }
