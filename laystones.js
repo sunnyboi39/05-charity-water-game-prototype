@@ -143,7 +143,7 @@ function moveStone2(){
   let maxmove=0;
 
   async function moveloop() {
-    let moveInc=Math.trunc(maxmove/10);
+    let moveInc=Math.floor(maxmove/10);
     let x=0;
     buttonNotPressed=true;
     console.log("moveloop running ");
@@ -156,13 +156,13 @@ function moveStone2(){
       x=0;
 
       for(l=0;l<=moveInc;l++){
-        document.getElementById("stone"+(stoneNum)).style.left= (l*(maxmove/moveInc))+"px";
+        document.getElementById("stone"+(stoneNum)).style.left= (l*(Math.floor(maxmove/moveInc)))+"px";
         console.log(document.getElementById("stone"+(stoneNum)).style.left);
         await delay(100);
       }
       console.log("right loop done");
       for(r=moveInc;r>=0;r--){
-        document.getElementById("stone"+(stoneNum)).style.left= (r*(maxmove/moveInc))+"px";
+        document.getElementById("stone"+(stoneNum)).style.left= (r*(Math.floor(maxmove/moveInc)))+"px";
         console.log(document.getElementById("stone"+(stoneNum)).style.left);
         await delay (100);
       }
@@ -229,6 +229,7 @@ function moveStone2(){
     moveloop();
     //console.log("xval: ", xval)
     stonebutt.addEventListener("click", ()=>{
+      clearTimeout(delay);
       buttonNotPressed=false;
       xval=parseInt(document.getElementById("stone"+(stoneNum)).style.left);
       console.log("XVAL: ", xval," is it a number? ", typeof xval)
