@@ -88,7 +88,7 @@ function makeStone(stone){
     stoneImg.alt = 'flat stone';
     stoneImg.style.width = "100%";
     stoneImg.style.height = "100%";
-    imgWrap.style.gridRow = "1";
+    imgWrap.style.gridRow = "1/2";
     imgWrap.style.gridColumn = "1 / 6";
     stoneImg.id="stoneimg"+stoneNum;
     stoneImg.style.left="0px";
@@ -166,7 +166,7 @@ function moveStone2(){
         console.log(document.getElementById("stone"+(stoneNum)).style.left);
         await delay (100);
       }
-      await delay(1000);
+      await delay();
 
 
 
@@ -220,7 +220,7 @@ function moveStone2(){
     stonebutt.disabled=false;
     //console.log("button pressed? ", !buttonNotPressed);
     stoneNum=stoneNum+1;
-    maxmove=makeStone(stoneType[0]);
+    maxmove=makeStone(stoneType[stoneNum-1]);
     console.log("maxmove(", maxmove, ") is a number?: ", typeof maxmove === 'number');
     document.getElementById("stone"+(stoneNum)).style.left="0px"
     //document.getElementById("stone"+(stoneNum)).style.gridRow="1/3";
@@ -233,10 +233,10 @@ function moveStone2(){
       xval=parseInt(document.getElementById("stone"+(stoneNum)).style.left);
       console.log("XVAL: ", xval," is it a number? ", typeof xval)
       try{
-        placeStone(document.getElementById("stone"+(stoneNum)),xval,stoneType[0]);
+        placeStone(document.getElementById("stone"+(stoneNum)),xval,stoneType[stoneNum-1]);
       //console.log("button pressed? ", !buttonNotPressed);
       stoneNum=stoneNum+1;
-      maxmove=makeStone(stoneType[0]);
+      maxmove=makeStone(stoneType[stoneNum-1]);
       console.log("maxmove(", maxmove, ") is a number?: ", typeof maxmove === 'number');
       document.getElementById("stone"+(stoneNum)).style.left="0px"
       //document.getElementById("stone"+(stoneNum)).style.gridRow="1/3";
@@ -359,25 +359,81 @@ function placeStone(stone,x,stonetype){
         }
       }
     
-      console.log("stone type 0 match: ",stonetype==stoneType[0]);
+      console.log("stone type match: ",stonetype==stoneType[1]);
       console.log(spaces);
-    
-      if(( spaces[i][gridx]===undefined) && ( spaces[i-1][gridx]===undefined) &&  ( spaces[i][gridx+1]===undefined ) && ( spaces[i][gridx+2]===undefined) ){
-    
-        spaces[i][gridx]=false;
-        spaces[i-1][gridx]=false;
-        spaces[i][gridx+1]=false;
-        spaces[i][gridx+2]=false;
-        console.log(spaces);
+      console.log("STONE TYPE: ",stonetype);
+      if(stonetype===stoneType[0]){
+        if(( spaces[i][gridx]===undefined) && ( spaces[i-1][gridx]===undefined) &&  ( spaces[i][gridx+1]===undefined ) && ( spaces[i][gridx+2]===undefined) ){
+      
+          spaces[i][gridx]=false;
+          spaces[i-1][gridx]=false;
+          spaces[i][gridx+1]=false;
+          spaces[i][gridx+2]=false;
+          console.log(spaces);
+          
+          well.appendChild(stone);
+          stone.style.position="absolute";
+          
+          
+          stone.style.gridRow=((15-(6-i))-2)+"/"+((15-(6-i)));
+          stone.style.gridColumn=(gridx+2)+"/"+(gridx+5);
+          console.log(stone.style.gridRow, stone.style.gridColumn);
+          break;
+        }
+      }else if(stonetype===stoneType[1]){
+        if(( spaces[i][gridx]===undefined) && ( spaces[i][gridx+1]===undefined) &&  ( spaces[i-1][gridx+1]===undefined ) && ( spaces[i-2][gridx+1]===undefined) ){
+      
+          spaces[i][gridx]=false;
+          spaces[i][gridx+1]=false;
+          spaces[i-1][gridx+1]=false;
+          spaces[i-2][gridx+1]=false;
+          console.log(spaces);
+          
+          well.appendChild(stone);
+          stone.style.position="absolute";
+          
+          
+          stone.style.gridRow=((15-(6-i))-3)+"/"+((15-(6-i)));
+          stone.style.gridColumn=(gridx+2)+"/"+(gridx+4);
+          console.log(stone.style.gridRow, stone.style.gridColumn);
+          break;
+        }
+      }else if(stonetype===stoneType[2]){
+        if(( spaces[i][gridx]===undefined) && ( spaces[i][gridx+1]===undefined) &&  ( spaces[i-1][gridx+1]===undefined ) && ( spaces[i-1][gridx]===undefined) ){
+      
         
-        well.appendChild(stone);
-        stone.style.position="absolute";
-        
-        
-        stone.style.gridRow=((i+8)-1)+"/"+((i+8)+1);
-        stone.style.gridColumn=(gridx+2)+"/"+(gridx+5);
-        console.log(stone.style.gridRow, stone.style.gridColumn);
-        break;
+          spaces[i][gridx]=false;
+          spaces[i][gridx+1]=false;
+          spaces[i-1][gridx+1]=false;
+          spaces[i-1][gridx]=false;
+          console.log(spaces);
+          well.appendChild(stone);
+          stone.style.position="absolute";
+          
+          
+          stone.style.gridRow=((15-(6-i))-2)+"/"+((15-(6-i)));
+          stone.style.gridColumn=(gridx+2)+"/"+(gridx+4);
+          console.log(stone.style.gridRow, stone.style.gridColumn);
+          break;
+        }
+      }else if(stonetype===stoneType[3]){
+        if(( spaces[i][gridx]===undefined) && ( spaces[i-1][gridx]===undefined) &&  ( spaces[i-2][gridx]===undefined ) && ( spaces[i-2][gridx+1]===undefined) ){
+      
+          spaces[i][gridx]=false;
+          spaces[i-1][gridx]=false;
+          spaces[i-2][gridx]=false;
+          spaces[i-2][gridx+1]=false;
+          console.log(spaces);
+          
+          well.appendChild(stone);
+          stone.style.position="absolute";
+          
+          
+          stone.style.gridRow=((15-(6-i))-3)+"/"+((15-(6-i)));
+          stone.style.gridColumn=(gridx+2)+"/"+(gridx+4);
+          console.log(stone.style.gridRow, stone.style.gridColumn);
+          break;
+        }
       }
     }
   }
