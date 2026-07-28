@@ -7,6 +7,7 @@ const wellimg = document.getElementById("well");
 const body=document.getElementById("body");
 const continuebutt=document.getElementById("continue-button");
 continuebutt.addEventListener("click",()=>{
+  saveData();
   location.reload();
 });
 const startbutt=document.getElementById("start-butt");
@@ -20,13 +21,13 @@ let stoneimg;
 let spaces=Array.from({length: 6}, () => Array(5)); //6 rows, 5 columns
 let gamedrops=0;
 
-export function saveData(){
+function saveData(){
   const data={
     drops: gamedrops
   };
   localStorage.setItem(storageKey,JSON.stringify(data));
 }
-export function restoreData(){
+function restoreData(){
   const savedData=localStorage.getItem(storageKey);
   if (savedData){
     const data=JSON.parse(savedData);
@@ -266,6 +267,7 @@ function moveStone2(){
         if(error instanceof ReferenceError || error instanceof TypeError){
           console.log("ERROR!!: ", error.name," ", error.message);
           gameover();
+    
 
         }
       }
@@ -314,7 +316,7 @@ function gameover(){
   //}
     break;
   }
-
+  export default gamedrops;
 }
 
 function placeStone(stone,x,stonetype){
@@ -517,5 +519,4 @@ moveStone2();
 //moveStone1(document.getElementById("stone"+stoneNum),document.getElementById("stoneimg"+stoneNum));
 //console.log(container.id);
 //console.log(wellimg.width);
-saveData();
 

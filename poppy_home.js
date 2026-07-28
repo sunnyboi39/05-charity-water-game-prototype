@@ -1,12 +1,5 @@
-import { saveData, restoreData } from "laystones.js";
-const storageKey="totalDrops";
+import gamedrops from "./laystones.js";
 const drops= document.getElementById("drops");
-let gamedrops;
-restoreData();
 drops.textContent="&#128167;- "+ gamedrops;
 
-
-
-
-saveData();
 
