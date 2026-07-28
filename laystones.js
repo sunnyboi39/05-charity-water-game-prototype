@@ -10,6 +10,7 @@ continuebutt.addEventListener("click",()=>{
   location.reload();
 });
 const startbutt=document.getElementById("start-butt");
+const storageKey="totalDrops";
 let stoneNum=0;
 let dropsEarned=0;
 let wellwidth;
@@ -18,6 +19,21 @@ let container;
 let stoneimg;
 let spaces=Array.from({length: 6}, () => Array(5)); //6 rows, 5 columns
 let gamedrops=0;
+
+export function saveData(){
+  const data={
+    drops: gamedrops
+  };
+  localStorage.setItem(storageKey,JSON.stringify(data));
+}
+export function restoreData(){
+  const savedData=localStorage.getItem(storageKey);
+  if (savedData){
+    const data=JSON.parse(savedData);
+    gamedrops= parseInt(data.drops,10);
+  }
+}
+restoreData();
 if(wellimg.complete){
     wellwidth=wellimg.width;
     console.log('Rendered Width well:', wellimg.width);  
@@ -501,4 +517,5 @@ moveStone2();
 //moveStone1(document.getElementById("stone"+stoneNum),document.getElementById("stoneimg"+stoneNum));
 //console.log(container.id);
 //console.log(wellimg.width);
+saveData();
 
