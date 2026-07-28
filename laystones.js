@@ -218,6 +218,7 @@ function moveStone2(){
     //buttonNotPressed=false;
     startbutt.disabled=true;
     stonebutt.disabled=false;
+    stonebutt.style.display= "flex";
     //console.log("button pressed? ", !buttonNotPressed);
     stoneNum=stoneNum+1;
     maxmove=makeStone(stoneType[stoneNum-1]);
