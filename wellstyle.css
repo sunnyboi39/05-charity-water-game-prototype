@@ -49,18 +49,28 @@ h1 {
 }
 
 a {
-  font-size: 5vw;
+  font-size: 3vh;
   text-decoration: none;
   color: inherit;
   border: 5px solid #fff7e1;
   border-radius: 1em;
   background-color:#fff7e180 ;
-  padding-left:.7em;
-  padding-right: .7em;
+  padding-left:.5em;
+  padding-right: .5em;
   padding-top: .2em;
   padding-bottom: .2em;
   
   
+}
+#gohome{
+  display: flex;
+  grid-row-start: 2;
+  grid-row-end: 5;
+  grid-column-start: 8;
+  grid-column-end: 11;
+  width:fit-content;
+  align-items: center;
+  justify-content: center;
 }
 p{
   font-size: 3vw;

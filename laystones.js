@@ -1,15 +1,16 @@
 
 const stoneType=["l stone","r stone","square","flipped r","flipped l","flat"];
 const stonebutt= document.getElementById("stone-button");
-const drops=document.getElementById("drops");
 const well = document.getElementById("wellcontainer");
 const wellimg = document.getElementById("well");
 const body=document.getElementById("body");
 const continuebutt=document.getElementById("continue-button");
-continuebutt.addEventListener("click",()=>{
-  saveData();
-  location.reload();
-});
+if(continuebutt){
+  continuebutt.addEventListener("click",()=>{
+    saveData();
+    location.reload();
+  });
+}
 const startbutt=document.getElementById("start-butt");
 const storageKey="totalDrops";
 let stoneNum=0;
@@ -21,7 +22,15 @@ let stoneimg;
 let spaces=Array.from({length: 6}, () => Array(5)); //6 rows, 5 columns
 let gamedrops=0;
 
+function syncGamedrops(){
+  window.gamedrops = gamedrops;
+  if(typeof window.updateDropsDisplay === "function"){
+    window.updateDropsDisplay();
+  }
+}
+
 function saveData(){
+  syncGamedrops();
   const data={
     drops: gamedrops
   };
@@ -33,17 +42,20 @@ function restoreData(){
     const data=JSON.parse(savedData);
     gamedrops= parseInt(data.drops,10);
   }
+  syncGamedrops();
 }
 restoreData();
-if(wellimg.complete){
-    wellwidth=wellimg.width;
-    console.log('Rendered Width well:', wellimg.width);  
-  }else{
-    wellimg.addEventListener('load', function() {
-    console.log('load Rendered Width well:', this.width);
-    wellwidth=this.width;
-    });
-  }
+if(wellimg){
+  if(wellimg.complete){
+      wellwidth=wellimg.width;
+      console.log('Rendered Width well:', wellimg.width);  
+    }else{
+      wellimg.addEventListener('load', function() {
+      console.log('load Rendered Width well:', this.width);
+      wellwidth=this.width;
+      });
+    }
+}
 
 function makeStone(stone){
   //stoneNum=stoneNum+1;
@@ -231,7 +243,8 @@ function moveStone2(){
 
   //xval=moveloop();
   console.log("xval: ", xval);
-  startbutt.addEventListener("click",()=>{
+  if(startbutt){
+    startbutt.addEventListener("click",()=>{
     //buttonNotPressed=false;
     startbutt.disabled=true;
     stonebutt.disabled=false;
@@ -246,7 +259,8 @@ function moveStone2(){
     moveStone1(document.getElementById("stone"+(stoneNum)),document.getElementById("stoneimg"+(stoneNum)));
     moveloop();
     //console.log("xval: ", xval)
-    stonebutt.addEventListener("click", ()=>{
+    if(stonebutt){
+      stonebutt.addEventListener("click", ()=>{
       clearTimeout(delay);
       buttonNotPressed=false;
       xval=parseInt(document.getElementById("stone"+(stoneNum)).style.left);
@@ -272,6 +286,7 @@ function moveStone2(){
         }
       }
     });
+    }
 
      //make stone type changeable
     
@@ -279,6 +294,7 @@ function moveStone2(){
 
     //placeStone(document.getElementById("stone"+(stoneNum)),x,stoneType[0]);
     });
+  }
   console.log("xval: ", xval);
   return xval;
 }
@@ -291,21 +307,23 @@ function gameover(){
       for(let c=0;c<5;c++){
         console.log("space[",r,"][",c,"] is: ", spaces[r][c]);
         if(spaces[r][c]===false){
-          gamedrops=gamedrops+40;
+          dropsEarned=dropsEarned+40;
           console.log("gamedrops",gamedrops);
         }
       }
     }
 
     gamedrops=gamedrops+dropsEarned;
+    syncGamedrops();
+    saveData();
     const gameover=document.createElement("p");
-    gameover.textContent="Game Over!\n you earned "+gamedrops+" drops!";
-    gameover.style.fontSize="2rem";
+    gameover.textContent="Game Over!\n you earned "+dropsEarned+" drops!\nYou have  "+gamedrops+" drops in total!";
+    gameover.style.fontSize="1rem";
     gameover.style.backgroundColor="white";
     gameover.style.position="absolute";
-    gameover.style.gridRow="1/15";
+    gameover.style.gridRow="4/7";
     gameover.style.left="1/9";
-    gameover.style.zIndex="11";
+    gameover.style.zIndex="30";
     well.appendChild(gameover);
     continuebutt.style.display="block";
     //drops.textContent="&#128167;- "+ gamedrops;
@@ -316,7 +334,6 @@ function gameover(){
   //}
     break;
   }
-  export default gamedrops;
 }
 
 function placeStone(stone,x,stonetype){
