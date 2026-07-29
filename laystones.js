@@ -170,30 +170,47 @@ function moveStone2(){
   const delay=(ms)=> new Promise(resolve => setTimeout(resolve,ms));
   let buttonNotPressed=true;
   let maxmove=0;
+  let moveId=0;
+  let delaytime=100;
+  function stopMoveLoop(){
+    buttonNotPressed=false;
+    moveId+=1;
+    delaytime-=12;
+  }
 
   async function moveloop() {
-    let moveInc=Math.floor(maxmove/10);
+    const id=++moveId;
+    let moveInc=Math.trunc(maxmove/10);
     let x=0;
     buttonNotPressed=true;
     console.log("moveloop running ");
-    let tempconstraint=0;
+    //let tempconstraint=0;
     document.getElementById("stone"+stoneNum).style.zIndex= (10+stoneNum)+"";
 
-    while(buttonNotPressed===true){
+    while(buttonNotPressed===true && id===moveId){
       document.getElementById("stone"+stoneNum).style.left="0px";
       console.log("maxmove while loop: ", maxmove);
       x=0;
 
-      for(l=0;l<=moveInc;l++){
-        document.getElementById("stone"+(stoneNum)).style.left= (l*(Math.floor(maxmove/moveInc)))+"px";
+      for(let l=0;l<=moveInc;l++){
+        if(buttonNotPressed!==true || id!==moveId){
+          break;
+        }
+        document.getElementById("stone"+(stoneNum)).style.left= (l*(Math.trunc(maxmove/moveInc)))+"px";
         console.log(document.getElementById("stone"+(stoneNum)).style.left);
-        await delay(100);
+        await delay(delaytime);
+      }
+      if(buttonNotPressed!==true || id!==moveId){
+          break;
       }
       console.log("right loop done");
-      for(r=moveInc;r>=0;r--){
-        document.getElementById("stone"+(stoneNum)).style.left= (r*(Math.floor(maxmove/moveInc)))+"px";
+      for(let r=moveInc;r>=0;r--){
+        if(buttonNotPressed!==true || id!==moveId){
+          break;
+        }
+        document.getElementById("stone"+(stoneNum)).style.left= (r*(Math.trunc(maxmove/moveInc)))+"px";
         console.log(document.getElementById("stone"+(stoneNum)).style.left);
-        await delay (100);
+        await delay (delaytime);
       }
       await delay(0);
 
@@ -261,8 +278,7 @@ function moveStone2(){
     //console.log("xval: ", xval)
     if(stonebutt){
       stonebutt.addEventListener("click", ()=>{
-      clearTimeout(delay);
-      buttonNotPressed=false;
+      stopMoveLoop();
       xval=parseInt(document.getElementById("stone"+(stoneNum)).style.left);
       console.log("XVAL: ", xval," is it a number? ", typeof xval)
       try{
@@ -317,7 +333,11 @@ function gameover(){
     syncGamedrops();
     saveData();
     const gameover=document.createElement("p");
-    gameover.textContent="Game Over!\n you earned "+dropsEarned+" drops!\nYou have  "+gamedrops+" drops in total!";
+    if(dropsEarned===1000){
+       gameover.textContent="Perfect!\n you earned "+dropsEarned+" drops!\nYou have  "+gamedrops+" drops in total!";
+    }else{
+      gameover.textContent="Game Over!\n you earned "+dropsEarned+" drops!\nYou have  "+gamedrops+" drops in total!";
+    }
     gameover.style.fontSize="1rem";
     gameover.style.backgroundColor="white";
     gameover.style.position="absolute";
