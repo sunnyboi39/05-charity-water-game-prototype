@@ -33,10 +33,10 @@ body {
 
 .poppybox{
   display: flex;
-  grid-row-start: 3;
+  grid-row-start: 2;
   grid-row-end: 10;
-  grid-column-start:4;
-  grid-column-end: 8;
+  grid-column-start:6;
+  grid-column-end: 9;
   position: relative;
   width:fit-content;
   align-items: center;
@@ -44,16 +44,29 @@ body {
   z-index: 10;
 }
 
-#window{
+#sunshirt{
   display: flex;
-  grid-row-start: 3;
-  grid-row-end: 6;
-  grid-column-start: 7;
-  grid-column-end: 11;
+  flex-direction: column;
+  grid-row-start: 2;
+  grid-row-end: 4;
+  grid-column-start: 4;
+  grid-column-end: 5;
   position: relative;
-  width:fit-content;
+  width: clamp(120px, 16vw, 180px);
+  height: clamp(150px, 20vw, 220px);
   align-items: center;
   justify-content: center;
+  background: none;
+  border: none;
+  padding: 0;
+  color: #4a2c1a;
+  font-size: 1rem;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+#sunshirt:hover {
+  transform: scale(1.05);
+  filter: brightness(1.05);
 }
 #can{
   display: flex;
@@ -66,87 +79,63 @@ body {
   align-items: center;
   justify-content: center;
 }
-
-.shirt-button {
+#dropshirt{
   display: flex;
+  flex-direction: column;
+  grid-row-start: 5;
+  grid-row-end: 7;
+  grid-column-start: 4;
+  grid-column-end: 5;
   position: relative;
+  width: clamp(120px, 16vw, 180px);
+  height: clamp(150px, 20vw, 220px);
   align-items: center;
   justify-content: center;
   background: none;
   border: none;
   padding: 0;
-  cursor: pointer;
+  color: #4a2c1a;
+  font-size: 1rem;
+  transition: transform 0.2s ease, filter 0.2s ease;
 }
 
-#sunshirt {
-  grid-row-start: 3;
-  grid-row-end: 6;
-  grid-column-start: 7;
-  grid-column-end: 11;
-}
-
-#dropshirt {
-  grid-row-start: 4;
-  grid-row-end: 8;
-  grid-column-start: 2;
-  grid-column-end: 5;
-}
-
-#canshirt {
-  grid-row-start: 4;
-  grid-row-end: 8;
-  grid-column-start: 2;
-  grid-column-end: 5;
-}
-
-.shirt-button img {
-  width: 100%;
-  height: 100%;
-}
-
-.shirt-button:hover img {
+#dropshirt:hover {
   transform: scale(1.05);
-  transition: transform 0.3s;
+  filter: brightness(1.05);
 }
-#dresser{
+
+#canshirt{
   display: flex;
-  grid-row-start: 4;
-  grid-row-end: 8;
-  grid-column-start: 2;
+  flex-direction: column;
+  grid-row-start: 8;
+  grid-row-end: 10;
+  grid-column-start: 4;
   grid-column-end: 5;
   position: relative;
-  width:fit-content;
+  width: clamp(120px, 16vw, 180px);
+  height: clamp(150px, 20vw, 220px);
   align-items: center;
   justify-content: center;
   background: none;
   border: none;
+  padding: 0;
+  color: #4a2c1a;
+  font-size: 1rem;
+  transition: transform 0.2s ease, filter 0.2s ease;
 }
 
-#dresser a {
-  all: unset;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-  background: none;
-  border: none;
-  padding: 0;
-  margin: 0;
-}
-
-#dresser img {
-  background: none;
-  border: none;
-  padding: 0;
-  margin: 0;
-  width: 93%;
-  height: 93%;
+#canshirt:hover {
+  transform: scale(1.05);
+  filter: brightness(1.05);
 }
 
 img{
   height:100%;
   width: 100%;
+  background: none;
+  border: none;
+  padding: 0;
+  object-fit: contain;
 }
 #can img{
   width:100%;
@@ -214,8 +203,8 @@ a {
 
 
 .poppybox img {
-  
-  /*margin-bottom: 3vh;*/
-  height:80%;
-  width:80%;
+  width: clamp(180px, 24vw, 320px);
+  height: auto;
+  max-height: 60vh;
+  object-fit: contain;
 }
