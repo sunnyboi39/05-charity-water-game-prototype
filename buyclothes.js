@@ -1,12 +1,21 @@
+
 document.addEventListener('DOMContentLoaded', () => {
   const storageKey = 'totalDrops';
   const purchasedShirtsKey = 'purchasedShirts';
   const poppyImageKey = 'poppyImageState';
-  const poppyImage = document.querySelector('.poppybox .Poppy');
+  const poppyImage = document.getElementById('popDresser');
   const canShirtButton = document.getElementById('canshirt');
   const dropShirtButton = document.getElementById('dropshirt');
   const sunShirtButton = document.getElementById('sunshirt');
   const dropsDisplay = document.getElementById('drops');
+
+
+  function syncShirt(){
+    window.poppyImage=poppyImage;
+    if(typeof window.updatePoppyShirt ==="function"){
+      window.updatePoppyShirt();
+    }
+  }
 
   if (dropsDisplay) {
     const currentDrops = readStoredDrops();
@@ -58,6 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function readSavedPoppyImage() {
     const savedData = localStorage.getItem(poppyImageKey);
+    console.log(savedData);
     if (savedData) {
       try {
         const parsedData = JSON.parse(savedData);
@@ -107,7 +117,9 @@ document.addEventListener('DOMContentLoaded', () => {
         poppyImage.src = imageName;
         poppyImage.alt = altText;
         savePoppyImage(imageName, altText);
+        syncShirt();
         updateDrops();
+        
       });
     }
   };
