@@ -527,7 +527,7 @@ function placeStone(stone,x,stonetype){
           
           
           stone.style.gridRow=((15-(6-i))-1)+"/"+((15-(6-i)));
-          stone.style.gridColumn=(gridx+2)+"/"+(gridx+6);
+          stone.style.gridColumn=(gridx+2)+"/"+(gridx+7);
           console.log(stone.style.gridRow, stone.style.gridColumn);
           break;
         }
