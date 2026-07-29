@@ -137,6 +137,13 @@ button{
 
 #continue-button{
   display: none;
+  grid-row-start: 1;
+  grid-row-end: 3;
+  grid-column-start: 2;
+  grid-column-end: 5;
+  width:fit-content;
+  align-items: center;
+  justify-content: center;
 }
 #start-div{
   display: flex;

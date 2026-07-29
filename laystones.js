@@ -325,11 +325,14 @@ function gameover(){
     gameover.style.left="1/9";
     gameover.style.zIndex="30";
     well.appendChild(gameover);
-    continuebutt.style.display="block";
+    continuebutt.style.display="flex";
+    continuebutt.style.gridRow="5/6";
+    continuebutt.style.gridColumn="5/6";
     //drops.textContent="&#128167;- "+ gamedrops;
     document.getElementById("stone"+(stoneNum)).style.display="none";
     stonebutt.removeEventListener("click",()=>{});
     stonebutt.disabled=true;
+    startbutt.style.display="none";
     //break;
   //}
     break;
