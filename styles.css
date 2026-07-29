@@ -39,16 +39,15 @@ h1,h2,h3,a,p{
 }
 
 a {
-  font-size: 5vw;
+  font-size: 5vh;
   text-decoration: none;
   color: inherit;
   border: 5px solid #fff7e1;
   border-radius: 1em;
-  /*background-color:#fff7e180 ;
-  padding-left:.7em;
-  padding-right: .7em;
-  padding-top: .2em;
-  padding-bottom: .2em;*/
+  padding-left: 6vh;
+  padding-right: 6vh;
+  background-color:#fff7e1 ;
+  
   
   
 }
@@ -59,9 +58,14 @@ a {
 }
 #butt{
   /*text-align: center;*/
+  display: flex;
+  grid-row-start: 8;
   grid-row-start: 9;
   grid-column-start: 5;
+  grid-column-end: 6;
   position: relative;
+  align-items: center;
+  justify-content: center;
   
   
 }
@@ -108,7 +112,7 @@ a {
   
 }
 #poppy{
-  display: block;
+  display: flex;
   margin-left: auto;
   margin-right: auto;
   grid-row-start: 4;
@@ -117,14 +121,16 @@ a {
   grid-column-end: 7;
   position: relative;
   width: fit-content;
+  align-items: center;
+  justify-content: center;
   /*height:30vw;
   margin-bottom: 3vw;*/
 }
 #poppy img{
   
-  height:100%;
-  width: 100%;
-  object-fit:scale-down;
+  height:80%;
+  width: 80%;
+  
   
   
 }
